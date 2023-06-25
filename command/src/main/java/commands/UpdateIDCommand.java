@@ -4,6 +4,8 @@ import collection.CollectionManager;
 import collection.HumanBeing;
 import commands.abstr.Command;
 import commands.abstr.InvocationStatus;
+import database.CollectionDatabaseHandler;
+import database.UserData;
 import exceptions.CannotExecuteCommandException;
 import file.HumanBeingReader;
 import io.User;
@@ -11,12 +13,15 @@ import io.User;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.concurrent.locks.Lock;
 
 public class UpdateIDCommand extends Command {
     /**
      * Поле, хранящее ссылку на объект класса CollectionManager.
      */
     private CollectionManager collectionManager;
+
+    private CollectionDatabaseHandler cdh;
     /**
      * Поле, хранящее ссылку на объект класса UserIO.
      */
@@ -40,7 +45,8 @@ public class UpdateIDCommand extends Command {
      * @param arguments аргументы команды.
      */
     @Override
-    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream) throws CannotExecuteCommandException {
+    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream,
+                        UserData userData, Lock locker) throws CannotExecuteCommandException {
         if (invocationEnum.equals(InvocationStatus.CLIENT)) {
             result = new ArrayList<>();
             if (arguments.length != 1) {

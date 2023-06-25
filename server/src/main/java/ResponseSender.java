@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Отправка ответов с использованием DatagramSocket
  */
-public class ResponseSender {
+public class ResponseSender implements Runnable {
     /**
      * Корневой логгер для записи логов
      */
@@ -20,6 +19,10 @@ public class ResponseSender {
      */
     private final DatagramSocket serverSocket;
 
+    private InetAddress receiverAddress;
+    private int receiverPort;
+    private byte[] byteArr;
+
     /**
      * Конструктор класса
      * @param serverSocket - сокет сервера
@@ -28,28 +31,30 @@ public class ResponseSender {
         this.serverSocket = serverSocket;
     }
 
-    /**
-     * Метод выполняет отправку сообщений
-     * @param string          строка, преобразуется в байтовый массив
-     * @param receiverAddress адрес получателя
-     * @param receiverPort    порт получателя
-     */
-    public void send(String string, InetAddress receiverAddress, int receiverPort) throws IOException {
+    public ResponseSender(DatagramSocket serverSocket, InetAddress receiverAddress, int receiverPort, byte[] byteArr) {
+        this.serverSocket = serverSocket;
+        this.receiverAddress = receiverAddress;
+        this.receiverPort = receiverPort;
+        this.byteArr = byteArr;
+    }
 
-        byte[] byteUDP = new byte[4096];
-
-        DatagramPacket dp = new DatagramPacket(byteUDP, byteUDP.length, receiverAddress, receiverPort);
-        // преобразование строки в байтовый массив
-        byte[] byteArr = string.getBytes(StandardCharsets.UTF_8);
-
+    @Override
+    public void run() {
         if (byteArr.length > 4096) {
-            rootLogger.warn("Размер пакета превышен");
-            return;
+            rootLogger.warn("Размер пакета превышает допустимый. Разделить пакеты пока не представляется возможным");
         } else {
-            // копирование данных из одного байтового массива в другой
-            System.arraycopy(byteArr, 0, byteUDP, 0, byteArr.length);
+            byte[] byteUdp = new byte[byteArr.length];
+            System.arraycopy(byteArr, 0, byteUdp, 0, byteUdp.length);
+            DatagramPacket dp = new DatagramPacket(byteUdp, byteUdp.length, receiverAddress, receiverPort);
+            try {
+                serverSocket.send(dp);
+            } catch (IOException exception) {
+                rootLogger.warn("Произошла ошибка при отправке: " + exception.getMessage());
+            }
         }
-        // отправка пакета dp
-        serverSocket.send(dp);
+    }
+
+    public DatagramSocket getServerSocket() {
+        return serverSocket;
     }
 }

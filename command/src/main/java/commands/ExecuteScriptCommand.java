@@ -4,6 +4,8 @@ import collection.CollectionManager;
 import commands.abstr.Command;
 import commands.abstr.CommandContainer;
 import commands.abstr.InvocationStatus;
+import database.CollectionDatabaseHandler;
+import database.UserData;
 import exceptions.CannotExecuteCommandException;
 import exceptions.RecursiveCallException;
 import file.HumanBeingReader;
@@ -13,6 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.locks.Lock;
 
 public class ExecuteScriptCommand extends Command {
 
@@ -20,6 +23,8 @@ public class ExecuteScriptCommand extends Command {
      * Поле, хранящее ссылку на объект класса CollectionManager.
      */
     private CollectionManager collectionManager;
+
+    private CollectionDatabaseHandler cdh;
 
     /**
      * Поле, хранящее ссылку на объект класса UserIO.
@@ -44,9 +49,9 @@ public class ExecuteScriptCommand extends Command {
     /**
      * Конструктор класса, предназначенный для клиентской части команды.
      *
-     * @param user читает данные из указанного потока.
+     * @param user             читает данные из указанного потока.
      * @param humanBeingReader Хранит ссылку на объект, осуществляющий чтение полей из указанного в userIO потока ввода.
-     * @param script             Хранит объект класса ExecuteScript.Script, из которого нам следует получить список адресов скриптов.
+     * @param script           Хранит объект класса ExecuteScript. Script, из которого нам следует получить список адресов скриптов.
      */
     public ExecuteScriptCommand(User user, HumanBeingReader humanBeingReader, Script script) {
         super("execute_script");
@@ -59,8 +64,9 @@ public class ExecuteScriptCommand extends Command {
      * Конструктор класса, предназначенный для серверной части команды.
      * @param collectionManager менеджер коллекции.
      */
-    public ExecuteScriptCommand(CollectionManager collectionManager) {
+    public ExecuteScriptCommand(CollectionManager collectionManager, CollectionDatabaseHandler cdh) {
         this.collectionManager = collectionManager;
+        this.cdh = cdh;
     }
 
     /**
@@ -71,7 +77,8 @@ public class ExecuteScriptCommand extends Command {
      * @param invocationEnum режим, с которым должна быть исполнена команда.
      * @param printStream поток вывода.
      */
-    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream) throws CannotExecuteCommandException {
+    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream, UserData userData,
+                        Lock locker) throws CannotExecuteCommandException {
         if (invocationEnum.equals(InvocationStatus.CLIENT)) {
             result = new ArrayList<>();
             try {
@@ -99,7 +106,7 @@ public class ExecuteScriptCommand extends Command {
                 }));
 
                 while (scanner.hasNext()) {
-                    if (commandManager.executeClient(scanner.nextLine(), nullStream)) {
+                    if (commandManager.executeClient(scanner.nextLine(), nullStream, userData)) {
                         super.result.add(commandManager.getLastCommandContainer());
                     }
                 }
@@ -112,7 +119,7 @@ public class ExecuteScriptCommand extends Command {
             } catch (IOException ex) {
                 printStream.println("Доступ к файлу невозможен");
             } catch (IllegalArgumentException ex) {
-                printStream.println("скрипт не передан в качестве аргумента команды, либо кол-во агрументов больше 1");
+                printStream.println("скрипт не передан в качестве аргумента команды, либо кол-во аргументов больше 1");
             } catch (RecursiveCallException ex) {
                 printStream.println("Скрипт " + scriptPath + " уже существует (Рекурсивный вызов)");
             }
@@ -124,9 +131,9 @@ public class ExecuteScriptCommand extends Command {
             arr = Arrays.copyOfRange(arr, 1, arr.length);
             CommandContainer[] containerArray = Arrays.copyOf(arr, arr.length, CommandContainer[].class);
 
-            CommandManager commandInvoker = new CommandManager(collectionManager);
+            CommandManager commandcommandManager = new CommandManager(collectionManager, cdh, locker);
             for (CommandContainer command : containerArray) {
-                commandInvoker.executeServer(command.getName(), command.getResult(), printStream);
+                commandcommandManager.executeServer(command.getName(), command.getResult(), printStream, userData);
             }
         }
     }
@@ -152,7 +159,7 @@ public class ExecuteScriptCommand extends Command {
         /**
          * Метод, добавляющий скрипт в коллекцию.
          *
-         * @param scriptPath адрес скрипта, требующий добавляения в коллекцию.
+         * @param scriptPath адрес скрипта, требующий добавления в коллекцию.
          */
         public void putScript(String scriptPath) {
             scriptPaths.add(scriptPath);

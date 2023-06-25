@@ -10,7 +10,6 @@ import exceptions.CannotExecuteCommandException;
 import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.locks.Lock;
 
 public class RemoveByIdCommand extends Command {
@@ -34,7 +33,9 @@ public class RemoveByIdCommand extends Command {
     }
 
     /**
-     * Метод, исполняющий команду. В случае успешного выполнения удалится элемент коллекции, значение уникального идентификаторого которого соответствует переданному в качестве аргумента, иначе предупреждение.
+     * Метод, исполняющий команду.
+     * В случае успешного выполнения удалится элемент коллекции, значение уникального
+     * идентификатор которого соответствует переданному в качестве аргумента, иначе предупреждение.
      * @param invocationEnum режим, с которым должна быть исполнена данная команда.
      * @param printStream поток вывода.
      * @param arguments аргументы команды.
@@ -53,13 +54,13 @@ public class RemoveByIdCommand extends Command {
             try {
                 locker.lock();
 
-                if (cdh.isOwner(id, userData)) {
+//                if (cdh.isOwner(id, userData)) {
                     cdh.deleteRowById(id);
                     collectionManager.removeById(id);
                     printStream.println("Элемент с id = " + id + " был удален.");
-                } else {
-                    printStream.println("Элемента с указанным id не существует.");
-                }
+//                } else {
+//                    printStream.println("Элемента с указанным id не существует.");
+//                }
             } finally {
                 locker.unlock();
             }

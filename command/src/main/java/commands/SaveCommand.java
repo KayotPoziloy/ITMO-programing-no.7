@@ -3,11 +3,13 @@ package commands;
 import collection.CollectionManager;
 import commands.abstr.Command;
 import commands.abstr.InvocationStatus;
+import database.UserData;
 import exceptions.CannotExecuteCommandException;
 
 import javax.print.attribute.standard.Severity;
 import java.io.PrintStream;
 import java.rmi.server.ServerNotActiveException;
+import java.util.concurrent.locks.Lock;
 
 public class SaveCommand extends Command {
 //    /**
@@ -37,21 +39,24 @@ public class SaveCommand extends Command {
      */
 
     @Override
-    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream)
-            throws CannotExecuteCommandException {
+    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream, UserData userData,
+                        Lock locker) throws CannotExecuteCommandException {
         if (invocationEnum.equals(InvocationStatus.CLIENT)) {
             throw new CannotExecuteCommandException("У данной команды для клиента нет выполнения.");
         } else if (invocationEnum.equals(InvocationStatus.SERVER)) {
-            collectionManager.saveCollection();
+            try {
+                locker.lock();
+                collectionManager.saveCollection();
+            } finally {
+                locker.unlock();
+            }
             printStream.println("Коллекция " + collectionManager.getClass().getSimpleName() + " была сохранена.");
         }
     }
 
     /**
      * Метод, возвращающий описание команды.
-     *
      * @return Метод, возвращающий описание команды.
-     * @see Command
      */
     @Override
     public String getDescription() {

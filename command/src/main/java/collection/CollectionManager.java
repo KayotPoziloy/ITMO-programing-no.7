@@ -23,6 +23,11 @@ public class CollectionManager {
         humanBeingArrayDeque = new ArrayDeque<>();
     }
 
+    public CollectionManager(HumanBeing[] humanBeings) {
+        this.humanBeingArrayDeque = new ArrayDeque<>();
+        Arrays.stream(humanBeings).forEach(humanBeing -> humanBeingArrayDeque.add(humanBeing));
+    }
+
     /**
      * Метод, который возвращает информацию о коллекции
      */
@@ -63,6 +68,7 @@ public class CollectionManager {
     public void add(HumanBeing humanBeing) {
         humanBeingArrayDeque.add(humanBeing);
     }
+
 
     /**
      * счетчик id

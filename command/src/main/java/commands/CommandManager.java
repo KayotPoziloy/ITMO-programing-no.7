@@ -154,15 +154,15 @@ public class CommandManager {
     private void putServerCommands() {
         serverCommands.put("info", new InfoCommand(collectionManager));//y
         serverCommands.put("show", new ShowCommand(collectionManager));//y
-        serverCommands.put("clear", new ClearCommand(collectionManager));//y
+        serverCommands.put("clear", new ClearCommand(collectionManager, cdh));//y
         serverCommands.put("save", new SaveCommand(collectionManager));//y
         serverCommands.put("help", new HelpCommand(serverCommands));//y
-        serverCommands.put("add", new AddCommand(collectionManager, humanBeingReader));
+        serverCommands.put("add", new AddCommand(collectionManager, cdh));
         serverCommands.put("remove_by_id", new RemoveByIdCommand(collectionManager, cdh));
         serverCommands.put("remove_lower", new RemoveLowerCommand(collectionManager));
         serverCommands.put("update_by_id", new UpdateIDCommand(collectionManager, humanBeingReader));
 
-        serverCommands.put("execute_script", new ExecuteScriptCommand(collectionManager));
+        serverCommands.put("execute_script", new ExecuteScriptCommand(collectionManager, cdh));
     }
 
     /**

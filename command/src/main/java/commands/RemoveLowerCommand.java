@@ -3,10 +3,12 @@ package commands;
 import collection.CollectionManager;
 import commands.abstr.Command;
 import commands.abstr.InvocationStatus;
+import database.UserData;
 import exceptions.CannotExecuteCommandException;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
 
 public class RemoveLowerCommand extends Command {
 
@@ -24,7 +26,8 @@ public class RemoveLowerCommand extends Command {
     }
 
     @Override
-    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream) throws CannotExecuteCommandException {
+    public void execute(String[] arguments, InvocationStatus invocationEnum, PrintStream printStream, UserData userData,
+                        Lock locker) throws CannotExecuteCommandException {
         if (invocationEnum.equals(InvocationStatus.CLIENT)) {
             result = new ArrayList<>();
             if (arguments.length != 1) {
@@ -33,7 +36,12 @@ public class RemoveLowerCommand extends Command {
             result.add(Integer.parseInt(arguments[0]));
         } else if (invocationEnum.equals(InvocationStatus.SERVER)) {
             Integer id = (Integer) this.getResult().get(0);
-            collectionManager.removeLower(id);
+            try {
+                locker.lock();
+                collectionManager.removeLower(id);
+            } finally {
+                locker.unlock();
+            }
             printStream.println("Элементы с id ниже " + id + " были удалены.");
         }
     }

@@ -16,7 +16,7 @@ public class UserDatabaseHandler {
     public void addUser(UserData userData) {
         String user_login = userData.getLogin();
         String user_pass = userData.getPassword();
-        String sql = "INSERT INTO USERDATA (USER_LOGIN, USER_PASSWORD) VALUES (?, ?)";
+        String sql = "INSERT INTO USERDATA (USER_LOGIN, USER_PASS) VALUES (?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user_login);
@@ -26,7 +26,7 @@ public class UserDatabaseHandler {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("Пользователь с указанным login уже существует\nДальнейшая ответственность за командой verifyUser");
+            System.out.println("Пользователь с указанным login уже существует\nДальнейшая ответственность за командой verifyUser " + ex);
         }
     }
 
@@ -37,7 +37,7 @@ public class UserDatabaseHandler {
     public void verifyUser(UserData userData) {
         String user_login = userData.getLogin();
         String user_pass = userData.getPassword();
-        String sql = "SELECT * FROM USERDATA WHERE USER_LOGIN = ? AND user_password = ?";
+        String sql = "SELECT * FROM USERDATA WHERE USER_LOGIN = ? AND user_pass = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user_login);
@@ -46,7 +46,7 @@ public class UserDatabaseHandler {
             userData.setIsNewUser(!rs.isBeforeFirst());
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Ошибка подключения к базе данных. Команда verify_user.");
+            System.out.println("Ошибка подключения к базе данных. Команда verify_user. " + ex);
         }
     }
 }

@@ -21,17 +21,15 @@ public class ServerConnection {
      * @param port по этому порту создает DatagramSocket
      * @return если создание сокета прошло успешно, возвращает true иначе false и выход
      */
-    public boolean createFromPort(Integer port) {
+    public void createFromPort(Integer port) {
         this.port = port;
         try {
             serverSocket = new DatagramSocket(port);
             rootLogger.info("Сервер готов");
-            return true;
         } catch (SocketException e) {
             rootLogger.warn("Порт " + port + " занят или не может быть открыт");
             System.exit(-1);
         }
-        return false;
     }
 
     /**

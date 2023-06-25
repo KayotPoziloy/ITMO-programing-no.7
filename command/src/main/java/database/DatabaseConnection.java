@@ -18,6 +18,7 @@ public class DatabaseConnection {
     }
 
     public Connection connectToDatabase() throws SQLException {
+
         connection = DriverManager.getConnection(URL, login, password);
         return connection;
     }
