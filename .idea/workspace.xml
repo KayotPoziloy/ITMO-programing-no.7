@@ -11,52 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8715050a-fd9f-4e68-95ae-21553421a42d" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/client_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/server_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/command/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logServer/app.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-05-31-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-05-31-2023-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-01-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-03-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-08-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-09-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-21-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-22-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-23-2023-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/CommandExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ResponseSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ResponseSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/collection/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/collection/CollectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/AddCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/AddCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/ClearCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/ClearCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/CommandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/ExecuteScriptCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/ExecuteScriptCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/ExitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/ExitCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/HelpCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/HelpCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/InfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/InfoCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/RemoveByIdCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/RemoveByIdCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/RemoveLowerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/RemoveLowerCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/SaveCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/SaveCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/ShowCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/ShowCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/commands/UpdateIDCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/commands/UpdateIDCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/database/CollectionDatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/database/CollectionDatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command/src/main/java/database/UserDatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/command/src/main/java/database/UserDatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/RequestReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/RequestReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ResponseSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ResponseSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ServerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ServerConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/2023-06/app-06-24-2023-1.log.gz" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +79,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainClient">
+  <component name="RunManager" selected="Application.MainServer">
     <configuration name="MainClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainClient" />
       <module name="client" />
@@ -146,8 +101,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainClient" />
         <item itemvalue="Application.MainServer" />
+        <item itemvalue="Application.MainClient" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +126,7 @@
       <workItem from="1687377782673" duration="23664000" />
       <workItem from="1687524703166" duration="22670000" />
       <workItem from="1687696798241" duration="685000" />
-      <workItem from="1687697502010" duration="1175000" />
+      <workItem from="1687697502010" duration="1505000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <created>1685480211564</created>
@@ -208,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687435865700</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=".">
+      <created>1687698842922</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687698842923</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

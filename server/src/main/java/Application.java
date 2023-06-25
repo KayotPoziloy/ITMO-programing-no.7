@@ -6,7 +6,6 @@ import database.DatabaseConnection;
 import database.UserDatabaseHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.apache.logging.log4j.core.jmx.Server;
 
 import java.io.*;
 import java.net.SocketException;
@@ -73,15 +72,12 @@ public class Application {
 
 
     private void createDatabaseConnection() {
-        Scanner scanner = new Scanner(System.in);
-//        String jdbcURL = "jdbc:postgresql://pg:5432/studs";
-//        String login = "s369108";
-//        String password = "VINZQfO4RYGGDKwR";
+
 
         String jdbcURL = "jdbc:postgresql://localhost:5432/studs";
         String login = "s369108";
         String password = "VINZQfO4RYGGDKwR";
-
+//        Scanner scanner = new Scanner(System.in);
 //        try {
 //            scanner = new Scanner(new FileReader("credentials.txt"));
 //        } catch (FileNotFoundException ex) {
@@ -98,15 +94,8 @@ public class Application {
         DatabaseConnection databaseConnection = new DatabaseConnection(jdbcURL, login, password);
 
         try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
             dbConnection = databaseConnection.connectToDatabase();
 
-//            dbConnection = DriverManager.getConnection(jdbcURL, login, password);
             rootLogger.info("Соединение с бд установлено.");
         } catch (SQLException ex) {
             rootLogger.error("Соединение с бд не установлено. Завершение работы сервера " + ex);
