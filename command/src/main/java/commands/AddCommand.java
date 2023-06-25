@@ -41,19 +41,20 @@ public class AddCommand extends Command {
                 throw new CannotExecuteCommandException("У этой команды нет аргументов");
             }
             HumanBeing humanBeing = humanBeingReader.read();
+            humanBeing.setOwner(userData.getLogin());
             super.result.add(humanBeing);
         } else if (invocationEnum.equals(InvocationStatus.SERVER)) {
             try {
                 locker.lock();
 
                 HumanBeing humanBeing = (HumanBeing) this.getResult().get(0);
-//                if (!cdh.isAnyRowById(humanBeing.getId())) {
+                if (!cdh.isAnyRowById(humanBeing.getId())) {
                     cdh.insertRow(humanBeing);
                     collectionManager.add(humanBeing);
                     printStream.println("Элемент добавлен в коллекцию.");
-//                } else {
-//                    printStream.println("Элемент с указанным id уже существует.");
-//                }
+                } else {
+                    printStream.println("Элемент с указанным id уже существует.");
+                }
             } finally {
                 locker.unlock();
             }

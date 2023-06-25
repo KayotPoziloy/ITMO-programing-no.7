@@ -10,6 +10,7 @@ public class UserData implements Serializable {
     private String password;
     private boolean isNewUser;
     private boolean isConnected;
+
     private InetAddress inetAddress;
     private Integer port;
 

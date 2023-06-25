@@ -6,7 +6,6 @@ import exceptions.CannotExecuteCommandException;
 import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.locks.Lock;
 
 public abstract class Command {

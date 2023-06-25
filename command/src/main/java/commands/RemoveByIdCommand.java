@@ -54,13 +54,13 @@ public class RemoveByIdCommand extends Command {
             try {
                 locker.lock();
 
-//                if (cdh.isOwner(id, userData)) {
+                if (cdh.isOwner(id, userData)) {
                     cdh.deleteRowById(id);
                     collectionManager.removeById(id);
                     printStream.println("Элемент с id = " + id + " был удален.");
-//                } else {
-//                    printStream.println("Элемента с указанным id не существует.");
-//                }
+                } else {
+                    printStream.println("Элемента с указанным id не существует.");
+                }
             } finally {
                 locker.unlock();
             }

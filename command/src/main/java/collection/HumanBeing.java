@@ -7,6 +7,8 @@ import java.util.Date;
  * Класс, представляющий сущность человека
  */
 public class HumanBeing implements Serializable {
+
+    private String user_login;
     /**
      * Уникальный id объекта.
      * Значение поля должно быть больше 0,
@@ -103,6 +105,29 @@ public class HumanBeing implements Serializable {
         this.minutesOfWaiting = minutesOfWaiting;
         this.weaponType = weaponType;
         this.car = car;
+    }
+
+    public static HumanBeing createHumanBeing(
+            Integer id,
+            String name,
+            float x,
+            long y,
+            Date creationDate,
+            Boolean realHero,
+            Boolean hasToothpick,
+            int impactSpeed,
+            String soundtrackName,
+            Float minutesOfWaiting,
+            WeaponType weaponType,
+            Car car,
+            String owner
+    ) {
+        Coordinates coordinates = new Coordinates(x, y);
+
+        HumanBeing humanBeing = new HumanBeing(id, name, coordinates, creationDate, realHero, hasToothpick,
+                impactSpeed, soundtrackName, minutesOfWaiting, weaponType, car);
+        humanBeing.setOwner(owner);
+        return humanBeing;
     }
 
     /**
@@ -288,6 +313,14 @@ public class HumanBeing implements Serializable {
      */
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public String getOwner() {
+        return user_login;
+    }
+
+    public void setOwner(String owner) {
+        this.user_login = owner;
     }
 
     /**

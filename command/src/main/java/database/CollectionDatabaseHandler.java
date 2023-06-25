@@ -22,8 +22,8 @@ public class CollectionDatabaseHandler {
 
     public void insertRow(HumanBeing humanBeing) throws SQLException {
         String sql = "INSERT INTO HUMANBEINGCOLLECTION (name, coordinate_x, coordinate_y, creation_date, real_hero," +
-                " has_toothpick, impact_speed, soundtrack_name, minutes_of_waiting, weapon_type, car)" +
-                " Values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " has_toothpick, impact_speed, soundtrack_name, minutes_of_waiting, weapon_type, car, owner)" +
+                " Values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, humanBeing.getName());
         ps.setFloat(2, humanBeing.getCoordinates().getX());
@@ -36,7 +36,8 @@ public class CollectionDatabaseHandler {
         ps.setFloat(9, humanBeing.getMinutesOfWaiting());
         ps.setString(10, humanBeing.getWeaponType().toString());
         ps.setBoolean(11, humanBeing.getCar().isCool());
-//        ps.setInt(12, collectionManager.generateNewId());
+        ps.setString(12, humanBeing.getOwner());
+
         ps.executeUpdate();
         ps.close();
     }
@@ -104,9 +105,9 @@ public class CollectionDatabaseHandler {
 //    }
 
     public void deleteAllOwned(UserData userData) throws SQLException { //Возвращает id всех удаленных элементов
-        String sql = "DELETE FROM HUMANBEINGCOLLECTION";
+        String sql = "DELETE FROM HUMANBEINGCOLLECTION WHERE OWNER = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-//        ps.setString(1, userData.getLogin());
+        ps.setString(1, userData.getLogin());
         int delRows = ps.executeUpdate();
         System.out.println("Было удалено " + delRows + " строк.");
     }
@@ -139,11 +140,13 @@ public class CollectionDatabaseHandler {
         Float minutesOfWaiting = rs.getFloat("minutes_of_waiting");
         String weaponType = rs.getString("weapon_type");
         Boolean car = rs.getBoolean("car");
+        String owner = rs.getString("owner");
 
-        HumanBeing humanBeing = new HumanBeing(
+        HumanBeing humanBeing = HumanBeing.createHumanBeing(
                 id,
                 humanBeingName,
-                new Coordinates(coordinate_x, coordinate_y),
+                coordinate_x,
+                coordinate_y,
                 creationDate,
                 realHero,
                 hasToothpick,
@@ -151,7 +154,9 @@ public class CollectionDatabaseHandler {
                 soundtrackName,
                 minutesOfWaiting,
                 WeaponType.valueOf(weaponType),
-                new Car(car));
+                new Car(car),
+                owner);
+
         return humanBeing;
     }
 
